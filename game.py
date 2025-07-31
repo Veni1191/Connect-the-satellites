@@ -33,6 +33,13 @@ def draw():
     
     for line in lines:
         screen.draw.line(line[0],line[1],"white")
+    
+    if current_satellite < number_of_satellites:
+        total_time = time() - start_time
+        screen.draw.text(str(round(total_time, 1)),(10,10),fontsize = 30)
+    else:
+        screen.draw.text(str(round(total_time, 1)),(10,10),fontsize = 30)
+        
 
 
 
@@ -43,8 +50,16 @@ def draw():
 def update():
     pass
 
-
-
+def on_mouse_down(pos):
+    global current_satellite,lines
+    if current_satellite < number_of_satellites:
+        if satellites[current_satellite].collidepoint(pos):
+            if current_satellite > 0:
+                lines.append((satellites[current_satellite-1].pos,satellites[current_satellite].pos))
+            current_satellite += 1 
+        else: 
+            lines = []
+            current_satellite = 0
 
 
 
